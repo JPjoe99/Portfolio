@@ -1,0 +1,414 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Ubuntu', sans-serif;
+}
+
+#topnav {
+    background-color: #f3f3f3;
+    overflow: hidden;
+}
+
+#topnav a {
+    color: #666;
+    text-align: center;
+    float: left;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#topnav a:hover {
+    background-color: darkgray;
+    cursor: pointer;
+}
+
+#topnav a.active {
+    background-color: white;
+}
+
+.profile-text {
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
+}
+
+.profile-img {
+    height: 93.22vh;
+    mix-blend-mode: darken;
+}
+
+.profile-image {
+    padding: 10px;
+}
+
+
+.profile-head {
+    color: white;
+}
+
+#projects, #education, #skills, #about, #contact, #home, #CV, .icon {
+    transition: 0.5s;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+
+.prev, .next {
+    cursor: pointer;
+    top: 50%;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    /* user-select: none; */
+  }
+
+.next {
+    float: right;
+}
+
+.prev {
+    float: left;
+}
+
+.project-slide {
+    display: none;
+    /* margin-right: auto;
+    margin-left: auto; */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.project-slide-img {
+    height: 300px;
+    width: 400px;
+}
+
+
+
+.logo-img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.project-card {
+    padding: 0;
+    position: relative;
+}
+
+.project-card-effect {
+    backface-visibility: hidden;
+    opacity: 1;
+    transition: 0.5s;
+}
+
+.project-card:hover .project-card-effect {
+    opacity: 0.3;
+}
+.project-card:hover .middle {
+    opacity: 1;
+}
+
+.flip-card {
+    perspective: 1000px;
+    padding: 0px;
+}
+
+.card > h2 {
+    padding-left: 10px;
+}
+
+.headline-container {
+    position: relative;
+}
+
+.headline {
+    position: absolute;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    font-size: 40px;
+}
+
+.project-text {
+    padding: 15px;
+}
+
+.clip {
+    clip-path: polygon(0 0%, 100% 4%, 100% 96%, 0% 100%);
+}
+
+.heading {
+    background-color: lightgray;
+    border-radius: 8px;
+}
+
+.heading > h1 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.fade-in {
+    opacity: 1;
+    transition-duration: 0.7s;
+}
+
+.fade-out {
+    opacity: 0;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+li {
+    list-style-type: square;
+    padding-bottom: 5px;
+}
+
+.icon {
+    display: none;
+}
+
+.about-img {
+    height: 100%; 
+    width: 100%; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.project-img {
+    width: 100%;
+    height: 100%;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.card-front, .card-back {
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.card-back {
+    position: absolute;
+    top: 0;
+    transform: rotateY(180deg);
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+input[type=text], select, textarea {
+    width: 100%; /* Full width */
+    padding: 12px; /* Some padding */ 
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+  }
+  
+  /* Style the submit button with a specific background color etc */
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* When moving the mouse over the submit button, add a darker green color */
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+
+  .icon:focus {
+      background-color: lightgray;
+  }
+
+  .bar {
+    background-color: lightgray;
+    width: 100%;
+  }
+
+  .red {
+    height: 12px;
+    width: 12px;
+    display: inline-block;
+    background-color: #ff5f57;
+    border-radius: 50%;
+  }
+
+  .amber {
+    height: 12px;
+    width: 12px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #ffbd2e;
+  }
+
+ .green {
+    height: 12px;
+    width: 12px;
+    display: inline-block;
+    border-radius: 50%;
+    background-color: #28ca41;
+  }
+
+  .middle {
+    transition: .5s ease;
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    text-align: center;
+  }
+.text {
+    background-color: gray;
+    color: white;
+    font-size: 16px;
+    padding: 16px 32px;
+}
+
+.text:hover {
+    cursor: pointer;
+}
+
+/* Slideshow container */
+.slideshow-container {
+    width: 80%;
+    position: relative;
+    margin: auto;
+  }
+  
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+  }
+  
+  /* Next & previous buttons */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* The dots/bullets/indicators */
+  .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active, .dot:hover {
+    background-color: #717171;
+  }
+  
+  /* Fading animation */
+  .carousel-fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+  }
+  
+  @-webkit-keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
+  
+  @keyframes fade {
+    from {opacity: .4}
+    to {opacity: 1}
+  }
