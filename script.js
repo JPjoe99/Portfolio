@@ -91,7 +91,14 @@ function changeSnippet(e) {
         main.innerHTML = "";
         main.appendChild(docBody);
         main.className = "fade-in container";
-        document.querySelector("#script").src = `../js/${tabID}.js`;
+        let script = document.querySelector("#script");
+        document.head.removeChild(script);
+        let snippetScript = document.createElement("script");
+        snippetScript.id = "script";
+        snippetScript.src = `../js/${tabID}.js`
+        document.head.appendChild(snippetScript);
+        //console.log(removed);
+        // document.querySelector("#script").src = `../js/${tabID}.js`;
     })
     .catch(error => {
         console.log("Failed to fetch page");

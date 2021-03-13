@@ -1,13 +1,27 @@
-let links = document.querySelectorAll(".text");
-console.log(links);
+addLink();
 
-for (let i = 0; i < links.length; i++) {
-    links[i].addEventListener("click", viewProject);
+function addLink() {
+    let links = document.querySelectorAll(".text");
+    for (let i = 0; i < links.length; i++) {
+        links[i].addEventListener("click", viewProject);
+    }
 }
 
-function viewProject(e) {
+async function loadingScreen() {
+    setTimeout(() => {
+    main.innerHTML = "<h1>Loading...</h1>";
+    main.className = "fade-in container";
+}, 100)
+};
+
+async function viewProject(e) {
+    let projectData;
     let projectID = e.target.parentElement.parentElement.id;
     main.className = "fade-out container";
+    await getProjectData(projectID)
+    .then(data => {
+        projectData = data;
+    });
     fetch("/snippets/project.html")
     .then(res => {
         return res.text();
@@ -18,8 +32,8 @@ function viewProject(e) {
         docBody = doc.querySelector(`#project`);
         main.innerHTML = "";
         main.appendChild(docBody);
+        addDataToPage(projectData);
         main.className = "fade-in container";
-        getProjectData(projectID);
     })
     .catch(error => {
         console.log(error);
@@ -39,24 +53,25 @@ function flipCard() {
     }
 }
 
-function getProjectData(projectID) {
+async function getProjectData(projectID) {
     console.log(projectID);
-    fetch(`http://localhost:3000/projects/${projectID}`, {
-        method: "GET",
+    let data = await fetch(`https://h34syawcrl.execute-api.eu-west-2.amazonaws.com/dev/getProjectData`, {
+        method: "POST",
         headers: {
             "Content-Type": "application/json",
-        }
+        },
+        body: JSON.stringify({title: projectID})
     })
     .then(res => {
         return res.json();
     })
     .then(data => {
-        console.log(data);
-        addDataToPage(data);
+        return data.body;
     })
     .catch(error => {
         console.log(error);
     })
+    return data;
 }
 
 function addDataToPage(data) {
@@ -65,17 +80,22 @@ function addDataToPage(data) {
     let technologies = document.querySelector("#technologies")
 
     let technologyHTML = ``;
-    console.log(data);
     let techLength = data.technologies.length;
     let gridSize;
     let additional;
-    console.log(techLength);
-    if (techLength <= 4) {
-        gridSize = 12 / techLength
+    let slides = document.querySelectorAll(".mySlides");
+    console.log(slides);
+    for (let i = 0; i < slides.length; i++) {
+        let source = `project-images/${data.title}-${i+1}.png`;
+        console.log(source);
+        slides[i].innerHTML = `<img class="project-img" src="../project-images/${data.title}-${i+1}.png">`
     }
-    else if (techLength > 4) {
-        additional = data.technologies.length - 4;
-        gridSize = 12 / additional;
+    // if (techLength <= 4) {
+    //     gridSize = 12 / techLength
+    // }
+    // else if (techLength > 4) {
+    //     additional = data.technologies.length - 4;
+    //     gridSize = 12 / additional;
         for (let i = 0; i < data.technologies.length; i++) {
             if (i < 4) {
                 technologyHTML += `<div class="col-3 col-s-6">
@@ -89,17 +109,16 @@ function addDataToPage(data) {
                                     <img class="logo-img" src="../logos/${data.technologies[i]}.png"/>
                                     </div>`
             }
-            
         }
+      //  }
 
-    }
+    //}
     // for (let i = 0; i < data.technologies.length; i++) {
     //     technologyHTML += `<div class="col-${gridSize} col-s-6">
     //                          <h3 class="text-center">${data.technologies[i]}</h3>
     //                          <img class="logo-img" src="../logos/${data.technologies[i]}.png"/>
     //                        </div>`
     // }
-    console.log(data);
     title.textContent = data.title;
     about.textContent = data.about;
     technologies.innerHTML = technologyHTML;

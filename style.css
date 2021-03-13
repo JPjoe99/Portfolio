@@ -177,6 +177,7 @@ body {
 }
 
 .heading {
+    /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
     background-color: lightgray;
     border-radius: 8px;
 }
@@ -333,7 +334,7 @@ input[type=text], select, textarea {
 
 /* Slideshow container */
 .slideshow-container {
-    width: 80%;
+    width: 100%;
     position: relative;
     margin: auto;
   }
@@ -412,3 +413,7 @@ input[type=text], select, textarea {
     from {opacity: .4}
     to {opacity: 1}
   }
+
+  .vl {
+    border-left: 1px solid black;
+}
