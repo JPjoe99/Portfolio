@@ -18,10 +18,11 @@ async function viewProject(e) {
     let projectData;
     let projectID = e.target.parentElement.parentElement.id;
     main.className = "fade-out container";
-    await getProjectData(projectID)
-    .then(data => {
-        projectData = data;
-    });
+    // main.className = "fade-out container";
+    // await getProjectData(projectID)
+    // .then(data => {
+    //     projectData = data;
+    // });
     fetch("/snippets/project.html")
     .then(res => {
         return res.text();
@@ -32,7 +33,7 @@ async function viewProject(e) {
         docBody = doc.querySelector(`#project`);
         main.innerHTML = "";
         main.appendChild(docBody);
-        addDataToPage(projectData);
+        //addDataToPage(projectData);
         main.className = "fade-in container";
     })
     .catch(error => {
@@ -78,11 +79,20 @@ function addDataToPage(data) {
     let title = document.querySelector("#project-title");
     let about = document.querySelector("#project-about");
     let technologies = document.querySelector("#technologies")
+    let barTitle = document.querySelector("#bar-title");
+    let detailsHTML;
+    console.log(data.details);
+    for (let i = 0; i < data.details.length; i++) {
+        detailsHTML += `<li>${data.details[i]}</li>`;
+    }
+
+    about.innerHTML = detailsHTML;
 
     let technologyHTML = ``;
     let techLength = data.technologies.length;
     let gridSize;
     let additional;
+
     let slides = document.querySelectorAll(".mySlides");
     console.log(slides);
     for (let i = 0; i < slides.length; i++) {
@@ -90,12 +100,6 @@ function addDataToPage(data) {
         console.log(source);
         slides[i].innerHTML = `<img class="project-img" src="../project-images/${data.title}-${i+1}.png">`
     }
-    // if (techLength <= 4) {
-    //     gridSize = 12 / techLength
-    // }
-    // else if (techLength > 4) {
-    //     additional = data.technologies.length - 4;
-    //     gridSize = 12 / additional;
         for (let i = 0; i < data.technologies.length; i++) {
             if (i < 4) {
                 technologyHTML += `<div class="col-3 col-s-6">
@@ -110,17 +114,9 @@ function addDataToPage(data) {
                                     </div>`
             }
         }
-      //  }
-
-    //}
-    // for (let i = 0; i < data.technologies.length; i++) {
-    //     technologyHTML += `<div class="col-${gridSize} col-s-6">
-    //                          <h3 class="text-center">${data.technologies[i]}</h3>
-    //                          <img class="logo-img" src="../logos/${data.technologies[i]}.png"/>
-    //                        </div>`
-    // }
     title.textContent = data.title;
-    about.textContent = data.about;
+    barTitle.textContent = data.title.toUpperCase();
+    //about.textContent = data.about;
     technologies.innerHTML = technologyHTML;
     showSlides();
 }
